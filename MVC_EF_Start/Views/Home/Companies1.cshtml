@@ -1,0 +1,91 @@
+@model MVC_EF_Start.Models.ChartModel
+@{ Layout = null;}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<body>
+
+    <!-- Navbar -->
+    <div class="container-wrapper">
+        <div class="brand-labling">
+            <img src="~/img/boat.png" />
+            <span>RENT-A-bOAT</span>
+        </div>
+        <!-- Navbar -->
+        <div class="top-menu-wrapper">
+            <div class="list-menu">
+                <ul>
+                    <li><a class="list-menu" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a class="list-menu" asp-area="" asp-controller="Home" asp-action="Search_page">Search</a></li>
+                    <li>
+                        <a href="#">Manage Listings &#9662;</a>
+                        <ul class="dropdown">
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Listing_add">Add</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Listing_modify">Modify</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Listing_delete">Delete</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="list-menu" asp-area="" asp-controller="Home" asp-action="Boatloc">Boat Loaction</a></li>
+                    <li><a class="list-menu" asp-area="" asp-controller="Home" asp-action="Stats">Stats</a></li>
+
+                    <li><a class="list-menu" asp-area="" asp-controller="Home" asp-action="About_us">About Us</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <h1>Bar chart</h1>
+    <canvas id="myChart" style="width: 100%; max-width: 600px; height: 500px;margin: 0 auto; background-color:white" ></canvas>
+
+    <script>
+       // var xValues = ["Buffalo", "Fairport", "Ithaca", "Waterloo", "Watkins Glen", "Union Springs", "Clevelend"];
+
+        //var yValues = [10, 4, 7, 3, 5, 8, 1];
+         var xValues = [@Html.Raw(ViewBag.Labels)];
+         var yValues = [@Html.Raw(ViewBag.Data)];
+        var barColors = ["cyan", "green", "blue", "orange", "brown", "purple", "pink"];
+
+        new Chart("myChart", {
+            type: 'bar',
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Title',
+
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>
